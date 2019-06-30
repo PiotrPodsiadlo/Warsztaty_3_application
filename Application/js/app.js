@@ -10,6 +10,28 @@ $(function(){
         console.log("failed to connect API");
     })
 
+    let inputs = document.querySelectorAll("input");
+    let submit = $(".btn-primary");
+    // console.log(inputs);
+    // console.log(inputs[0].value);
+    submit.on("click", function(event){
+        event.preventDefault();
+        console.log(submit);
+        $.ajax({
+            url: 'http://localhost:8282/books/.',
+            // data: `{"id":"${inputs[0].value}","isbn":"${inputs[1].value}", "title":"${inputs[2].value}"}`,
+            //contentType: "application/json",
+            method: 'POST'
+        }).done(function (response) {
+            renderTitles(response);
+            printInfo(response)
+        }).fail(function(){
+            console.log("failed to connect API");
+        })
+    })
+
+
+
 })
 divApp = $("#app");
 
@@ -22,8 +44,8 @@ renderTitles = function(resp) {
 printInfo = function(resp) {
     let h3Titles = document.querySelectorAll(".book-title");            // znajduje wszystkie sekcje zawierające tytuły ksiażek
     h3Titles.forEach(function (elem) {                                  //dla każdej z nich zakladam event na klikniecie
-        // console.log(elem.id);
-        $(elem).on("click", function (event) {
+        // console.log(elem);
+        $(elem).one("click", function (event) {                                 // "one" zamiast "on", zeby nie mozna było otwierac szszegółów wielokrotnie
             let thisDiv = $(this).find("div");
             $(thisDiv).fadeIn("slow");                                          // event działa dla diva, które jest potomkiem kliknietej sekcji - rozwija go
             // console.log(thisDiv);
@@ -35,6 +57,8 @@ printInfo = function(resp) {
                 console.log(response);
                 $.each( response, function( key, value ) {
                     console.log( key + ": " + value );
+                    bookDetails = $(`<h7 class="key">${key}: </h7><h7 class="value">${value} | </h7>`);
+                    thisDiv.append(bookDetails)
                 });
             }).fail(function(){
                 console.log("failed to connect API");

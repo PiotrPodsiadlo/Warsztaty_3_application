@@ -26,3 +26,13 @@ span {
   display: none;
   background-color: #bada55;
 }
+.key {
+  color: darkred;
+}
+p {
+  font-family: Arial;
+}
+section{
+  font-style: italic;
+  font-family: Arial;
+}
