@@ -18,7 +18,7 @@ $(function(){
         event.preventDefault();
         console.log(submit);
         $.ajax({
-            url: 'http://localhost:8282/books/.',
+            url: 'http://localhost:8282/books/',
             // data: `{"id":"${inputs[0].value}","isbn":"${inputs[1].value}", "title":"${inputs[2].value}"}`,
             //contentType: "application/json",
             method: 'POST'
